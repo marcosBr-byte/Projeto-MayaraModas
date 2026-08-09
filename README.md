@@ -23,4 +23,3 @@ Things you may want to cover:
 
 * ...
 # Projeto-MayaraModas
-# Projeto-MayaraModas
