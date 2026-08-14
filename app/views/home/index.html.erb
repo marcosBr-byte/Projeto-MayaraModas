@@ -1,20 +1,121 @@
 <header>
+    <div class="logo">
+        <%= image_tag "logo.png", alt: "logo" %>
+    </div>
+
     <nav>
-        <a href="#novidades" class="nav-link">Novidades</a>
-        <a href="#feminino" class="nav-link">Feminino</a>
-        <a href="#masculino" class="nav-link">Masculino</a>
-        <a href="#kids" class="nav-link">Kids</a>
+        <a href="#secao-explorar" class="nav-link">Explorar</a>
+        <a href="/produto/novidades" class="nav-link">Novidades</a>
+        <a href="/produto/feminino" class="nav-link">Feminino</a>
+        <a href="/produto/masculino" class="nav-link">Masculino</a>
+        <a href="/produto/kids" class="nav-link">Kids</a>
     </nav>
+
     <div class="box-btn-actions">
-        <button class="btn-action">Entrar</button>
-        <button class="btn-action">Carrinho</button>
+        <%= button_to "Carrinho", "/carrinho", method: :get, class: "btn-action" %>
+        <%= button_to "Entrar", "/user/login", method: :get, class: "btn-action" %>
     </div>
 </header>
+
 <main>
-    <section class="primeiro-section">
-        <div class="img-principal">
+   <section id="secao-novidades" class="primeiro-section">
+        <div class="carrosel">
+            <input type="radio" name="radio-btn" id="radio1" checked>
+            <input type="radio" name="radio-btn" id="radio2">
+            <input type="radio" name="radio-btn" id="radio3">
 
+            <div class="slides">
+                <div class="slide">
+                    <%= image_tag "hero.jpg", alt: "principal" %>
+                    <div class="slide-texto">
+                        <h2 class="titulo">Nova Coleção</h2>
+                        <p>Descubra os lançamentos da temporada</p>
+                        <%= link_to "Ver agora", "/produto/novidades", class: "btn-action link-action" %>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <%= image_tag "novidades-women.jpg", alt: "secundário" %>
+                    <div class="slide-texto">
+                        <h2 class="titulo">Feminino</h2>
+                        <p>Estilo e conforto para todos os momentos</p>
+                        <%= link_to "Explorar", "/produto/novidades", class: "btn-action link-action" %>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <%= image_tag "novidades-men.jpg", alt: "terceiro" %>
+                    <div class="slide-texto">
+                        <h2 class="titulo">Masculino</h2>
+                        <p>Peças essenciais com design moderno</p>
+                        <%= link_to "Ver coleção", "/produto/novidades", class: "btn-action link-action" %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manual-navigation">
+                <label for="radio1" class="manual-btn"></label>
+                <label for="radio2" class="manual-btn"></label>
+                <label for="radio3" class="manual-btn"></label>
+            </div>
         </div>
-        
+    </section>
 
+    <div class="produtos-destaques">
+    <h2 class="titulo">Produtos em Destaque</h2>
 
+    <div class="produtos">
+        <% @destaques.each do |produto| %>
+            <div class="card-produto">
+
+                <%= image_tag produto.imagem, class: "img-produto" %>
+
+                <h3><%= produto.nome %></h3>
+
+                <p class="preco">
+                    R$ <%= produto.preco %>
+                </p>
+
+                <p class="categoria">
+                    <%= produto.categoria.capitalize %>
+                </p>
+                <%= link_to "Ver Produto", produto_path(produto), class: "btn-action" %>
+            </div>
+        <% end %>
+    </div>
+
+    <section id="secao-explorar" class="secundo-section">
+        <h2 class="titulo">Explorar</h2>
+        <p class="section-descricao">Escolha uma categoria:</p>
+
+        <div class="grid-categorias">
+            <a href="/produto/feminino" class="card-categoria">
+                <%= image_tag "vestido-azul.png", alt: "Feminino" %>
+                <h3>Feminino</h3>
+                <span>Vestidos, blusas e muito mais</span>
+            </a>
+
+            <a href="/produto/masculino" class="card-categoria">
+                <%= image_tag "polo-verde-oliva.png", alt: "Masculino" %>
+                <h3>Masculino</h3>
+                <span>Camisetas, calças e acessórios</span>
+            </a>
+
+            <a href="/produto/kids" class="card-categoria">
+                <%= image_tag "menina-capa.png", alt: "Kids" %>
+                <h3>Kids</h3>
+                <span>Moda confortável para crianças</span>
+            </a>
+        </div>
+   
+
+    </section>
+
+    <footer class="footer">
+        <div class="logo">
+            <%= image_tag "logo.png", alt: "logo" %>
+        </div>
+        <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
+    </footer>
+
+</main>
