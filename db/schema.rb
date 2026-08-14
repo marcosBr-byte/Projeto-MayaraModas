@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_08_215226) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_14_123432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,31 +32,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_08_215226) do
     t.index ["produto_id"], name: "index_itemcarrinhos_on_produto_id"
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "description"
-    t.string "title"
-    t.datetime "updated_at", null: false
-  end
-
   create_table "produtos", force: :cascade do |t|
+    t.string "categoria"
     t.datetime "created_at", null: false
     t.string "descricao"
     t.integer "estoque"
+    t.string "imagem"
     t.string "nome"
     t.decimal "preco", precision: 8, scale: 2
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.string "email"
     t.string "nome"
-    t.string "senha"
+    t.string "password_digest"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["nome"], name: "index_users_on_nome", unique: true
-    t.index ["senha"], name: "index_users_on_senha", unique: true
   end
 
   add_foreign_key "carrinhos", "users"
