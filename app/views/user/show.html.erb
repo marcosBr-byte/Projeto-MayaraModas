@@ -1,0 +1,21 @@
+<header>
+  <div class="logo">
+    <%= image_tag "logo.png", alt: "logo" %>
+  </div>
+
+  <nav>
+    <a href="/" class="nav-link">Página inicial</a>
+  </nav>
+</header>
+
+<main class="user-show">
+  <h1><%= @user.nome %></h1>
+  <p><%= @user.email %></p>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <%= image_tag "logo.png", alt: "logo" %>
+  </div>
+  <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
+</footer>

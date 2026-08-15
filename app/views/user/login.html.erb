@@ -1,0 +1,27 @@
+<%= form_with model: @user, url: "/user/login", method: :post do |form| %>
+
+<div class="box-btn-actions">
+  <%= link_to "Página inicial", "/", class: "btn-action" %>
+  <%= link_to "Login admin", "/user/loginAdmin" %>
+</div>
+
+    <h1 class="titulo">Login</h1>
+
+    <%= form.label :email, "Email" %>
+
+    <div class="input-box">
+    <%= form.email_field :email %>
+    </div>
+
+    <%= form.label :password, "Senha" %>
+
+    <div class="input-box">
+    <%= form.password_field :password %>
+    </div>
+
+    <div class="btn-form">
+    <%= form.submit "Entrar" %>
+    <%= link_to "Não tem uma conta? Cadastrar-se", "/user/cadastrar" %>
+    </div>
+
+<% end %>

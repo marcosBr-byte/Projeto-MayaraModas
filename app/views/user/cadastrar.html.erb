@@ -1,0 +1,38 @@
+<%= form_with model: @user, url: "/user/cadastrar", method: :post do |form| %>
+
+<div class="box-btn-actions">
+  <%= link_to "Página inicial", root_path, class: "btn-action" %>
+</div>
+
+    <h1 class="titulo">Criar Conta</h1>
+
+    <%= form.label :nome, "Nome" %>
+
+    <div class="input-box">
+    <%= form.text_field :nome %>
+    </div>
+
+    <%= form.label :email, "Email" %>
+
+    <div class="input-box">
+    <%= form.email_field :email %>
+    </div>
+
+    <%= form.label :password, "Senha" %>
+
+    <div class="input-box">
+    <%= form.password_field :password %>
+    </div>
+
+    <%= form.label :password_confirmation, "Confirmar Senha" %>
+
+    <div class="input-box">
+    <%= form.password_field :password_confirmation %>
+    </div>
+
+    <div class="btn-form">
+    <%= form.submit "Criar conta" %>
+    <%= link_to "Já tem uma conta? Entrar", "/user/login" %>
+    </div>
+
+<% end %>
