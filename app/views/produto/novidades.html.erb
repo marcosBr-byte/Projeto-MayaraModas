@@ -1,0 +1,40 @@
+<header>
+    <div class="logo">
+        <%= image_tag "logo.png", alt: "logo" %>
+    </div>
+
+    <nav>
+       <a href="/" class="nav-link">Página inicial</a>
+    </nav>
+    <div class="box-btn-actions">
+        <%= button_to "Carrinho", "/carrinho", method: :get, class: "btn-action" %>
+        <%= button_to "Entrar", "/user/login", method: :get, class: "btn-action" %>
+    </div>
+</header>
+
+<h1 class="titulo">Novidades</h1>
+
+<div class="filtro-categorias">
+    <%= button_to "Todos", novidades_produtos_path,class: "btn-filtro #{"ativo" if @categoria.blank?}" %>
+    <%= button_to "Masculino", novidades_produtos_path(categoria: "masculino"),class: "btn-filtro #{"ativo" if @categoria == "masculino"}" %>
+    <%= button_to "Feminino", novidades_produtos_path(categoria: "feminino"),class: "btn-filtro #{"ativo" if @categoria == "feminino"}" %>
+    <%= button_to "Kids", novidades_produtos_path(categoria: "kids"),class: "btn-filtro #{"ativo" if @categoria == "kids"}" %>
+</div>
+
+<div class="produtos">
+    <% if @produtos.any? %>
+        <% @produtos.each do |produto| %>
+            <div class="card-produto">
+                <%= image_tag produto.imagem, class: "img-produto" %>
+                <h3><%= produto.nome %></h3>
+                <p class="preco">R$ <%= produto.preco %></p>
+                <p class="parcelamento">
+                    Até 12x de R$ <%= (produto.preco / 12).round(2) %>
+                </p>
+                <%= button_to "Adicionar ao carrinho", "/carrinho", method: :get, class: "btn-action", disabled: produto.estoque.to_i.zero? %>
+            </div>
+        <% end %>
+    <% else %>
+        <p>Nenhum produto encontrado nessa categoria.</p>
+    <% end %>
+</div>

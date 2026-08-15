@@ -1,0 +1,46 @@
+<header>
+  <div class="logo">
+    <%= image_tag "logo.png", alt: "logo" %>
+  </div>
+
+  <nav>
+    <a href="/" class="nav-link">Página inicial</a>
+  </nav>
+  <div class="box-btn-actions">
+    <%= button_to "Carrinho", "/carrinho", method: :get, class: "btn-action" %>
+    <%= button_to "Entrar", "/user/login", method: :get, class: "btn-action" %>
+  </div>
+</header>
+
+<main class="produto-show">
+  <div class="produto-detalhe">
+    <%= image_tag @produto.imagem, class: "img-produto-grande", alt: @produto.nome %>
+
+    <div class="produto-info">
+      <h1><%= @produto.nome %></h1>
+      <p class="descricao"><%= @produto.descricao %></p>
+
+      <p class="preco">R$ <%= @produto.preco %></p>
+      <p class="parcelamento">
+        Até 12x de R$ <%= (@produto.preco / 12).round(2) %>
+      </p>
+
+      <p class="estoque">
+        <% if @produto.estoque.to_i > 0 %>
+          Em estoque
+        <% else %>
+          Fora de estoque
+        <% end %>
+      </p>
+
+     <%= button_to "Adicionar ao carrinho", "/carrinho", method: :get, class: "btn-action", disabled: @produto.estoque.to_i.zero? %>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <%= image_tag "logo.png", alt: "logo" %>
+  </div>
+  <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
+</footer>

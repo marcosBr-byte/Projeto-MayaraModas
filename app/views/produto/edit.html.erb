@@ -1,0 +1,61 @@
+<header>
+  <div class="logo">
+    <%= image_tag "logo.png", alt: "logo" %>
+  </div>
+
+  <div class="box-btn-actions">
+    <%= link_to "Página inicial", "/", class: "btn-action" %>
+    <%= link_to "Página cadastrar novo produto", "/produto/new", class: "btn-action" %>
+    <%= link_to "Página de produtos cadastrados","/produto/index",class: "btn-action" %>
+  </div>
+</header>
+
+<%= form_with model: @produto,url: "/produto/#{@produto.id}",method: :patch do |form| %>
+
+  <h1 class="titulo">Atualizar produto</h1>
+
+  <% if @produto.errors.any? %>
+    <div class="form-erros">
+      <ul>
+        <% @produto.errors.full_messages.each do |mensagem| %>
+          <li><%= mensagem %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.label :nome, "Nome" %>
+  <div class="input-box">
+    <%= form.text_field :nome %>
+  </div>
+
+  <%= form.label :descricao, "Descrição" %>
+  <div class="input-box">
+    <%= form.text_area :descricao %>
+  </div>
+
+  <%= form.label :preco, "Preço" %>
+  <div class="input-box">
+    <%= form.number_field :preco, step: 0.01 %>
+  </div>
+
+  <%= form.label :estoque, "Estoque" %>
+  <div class="input-box">
+    <%= form.number_field :estoque %>
+  </div>
+
+  <%= form.label :categoria, "Categoria" %>
+  <div class="input-box">
+    <%= form.select :categoria, ["masculino", "feminino", "kids"] %>
+  </div>
+
+  <%= form.label :imagem, "Nome do arquivo da imagem" %>
+  <div class="input-box">
+    <%= form.text_field :imagem, placeholder: "ex: camiseta-azul.png" %>
+  </div>
+
+  <div class="btn-form">
+    <%= form.submit "Atualizar produto" %>
+  </div>
+
+<% end %>

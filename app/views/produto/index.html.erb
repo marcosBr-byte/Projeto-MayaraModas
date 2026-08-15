@@ -1,0 +1,45 @@
+<header>
+  <div class="logo">
+    <%= image_tag "logo.png", alt: "logo" %>
+  </div>
+
+  <div class="box-btn-actions">
+    <%= link_to "Página inicial", "/", class: "btn-action"%>
+    <%= link_to "Página cadastrar novo produto", "/produto/new", class: "btn-action"%>
+  </div>
+</header>
+
+ 
+<% if @produtos.any? %>
+  <% @produtos.each do |produto| %>
+
+    <div class="card-produto">
+
+      <h3><%= produto.nome %></h3>
+
+      <p>
+        <strong>Preço:</strong>
+        R$ <%= produto.preco %>
+      </p>
+
+      <p>
+        <strong>Categoria:</strong>
+        <%= produto.categoria %>
+      </p>
+
+      <p>
+        <strong>Descrição:</strong>
+        <%= produto.descricao %>
+      </p>
+
+      <% if produto.imagem.present? %>
+        <%= image_tag produto.imagem, width: 200 %>
+      <% end %>
+      <%= button_to "Editar Produto", edit_produto_path(produto.id), method: :get, class: "btn-action" %>
+      <%= button_to "Excluir Produto", delete_produto_path(produto.id), method: :delete, data: { turbo_confirm: "Tem certeza?" }, class: "btn-action" %>
+    </div>
+
+  <% end %>
+<% else %>
+  <p>Nenhum produto encontrado nessa categoria.</p>
+<% end %>
