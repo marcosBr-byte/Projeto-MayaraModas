@@ -25,7 +25,7 @@
                 <p class="parcelamento">
                     Até 12x de R$ <%= (produto.preco / 12).round(2) %>
                 </p>
-                <%= button_to "Adicionar ao carrinho", "/carrinho", method: :get, class: "btn-action", disabled: produto.estoque.to_i.zero? %>
+                <%= button_to "Adicionar ao carrinho", adicionar_carrinho_path(produto), method: :post, class: "btn-action" %>
             </div>
         <% end %>
     </div>
