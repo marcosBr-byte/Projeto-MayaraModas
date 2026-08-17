@@ -64,3 +64,5 @@ group :development do
   gem "web-console"
   gem "byebug", ">= 13.0"
 end
+
+gem "tailwindcss-rails", "~> 4.6"
