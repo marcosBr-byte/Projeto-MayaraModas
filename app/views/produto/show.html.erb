@@ -33,7 +33,7 @@
         <% end %>
       </p>
 
-     <%= button_to "Adicionar ao carrinho", "/carrinho", method: :get, class: "btn-action", disabled: @produto.estoque.to_i.zero? %>
+     <%= button_to "Adicionar ao carrinho", adicionar_carrinho_path(@produto), method: :post, class: "btn-action" %>
     </div>
   </div>
 </main>
