@@ -18,7 +18,7 @@
 </header>
 
 <main>
-   <section id="secao-novidades" class="primeiro-section">
+    <section id="secao-novidades" class="primeiro-section">
         <div class="carrosel">
             <input type="radio" name="radio-btn" id="radio1" checked>
             <input type="radio" name="radio-btn" id="radio2">
@@ -39,7 +39,7 @@
                     <div class="slide-texto">
                         <h2 class="titulo">Feminino</h2>
                         <p>Estilo e conforto para todos os momentos</p>
-                        <%= link_to "Explorar", "/produto/novidades", class: "btn-action link-action" %>
+                        <%= link_to "Explorar", "/produto/feminino", class: "btn-action link-action" %>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                     <div class="slide-texto">
                         <h2 class="titulo">Masculino</h2>
                         <p>Peças essenciais com design moderno</p>
-                        <%= link_to "Ver coleção", "/produto/novidades", class: "btn-action link-action" %>
+                        <%= link_to "Ver coleção", "/produto/masculino", class: "btn-action link-action" %>
                     </div>
                 </div>
             </div>
@@ -61,32 +61,9 @@
         </div>
     </section>
 
-    <div class="produtos-destaques">
-    <h2 class="titulo">Produtos em Destaque</h2>
-
-    <div class="produtos">
-        <% @destaques.each do |produto| %>
-            <div class="card-produto">
-
-                <%= image_tag produto.imagem, class: "img-produto" %>
-
-                <h3><%= produto.nome %></h3>
-
-                <p class="preco">
-                    R$ <%= produto.preco %>
-                </p>
-
-                <p class="categoria">
-                    <%= produto.categoria.capitalize %>
-                </p>
-                <%= link_to "Ver Produto", show_produto_path(produto), class: "btn-action" %>
-            </div>
-        <% end %>
-    </div>
-
-    <section id="secao-explorar" class="secundo-section">
+    <section id="secao-explorar" class="segundo-section">
         <h2 class="titulo">Explorar</h2>
-        <p class="section-descricao">Escolha uma categoria:</p>
+        <p class="section-descricao">Escolha uma categoria e encontre o look ideal</p>
 
         <div class="grid-categorias">
             <a href="/produto/feminino" class="card-categoria">
@@ -107,15 +84,29 @@
                 <span>Moda confortável para crianças</span>
             </a>
         </div>
-   
-
     </section>
 
-    <footer class="footer">
-        <div class="logo">
-            <%= image_tag "logo.png", alt: "logo" %>
-        </div>
-        <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
-    </footer>
+    <section id="secao-destaques" class="terceiro-section">
+        <h2 class="titulo">Produtos em Destaque</h2>
+        <p class="section-descricao">Selecionados especialmente para você</p>
 
+        <div class="grid-produtos">
+            <% @destaques.each do |produto| %>
+                <article class="card-produto">
+                    <%= image_tag produto.imagem, alt: produto.nome, class: "img-produto" %>
+                    <h4><%= produto.nome %></h4>
+                    <p class="preco">R$ <%= number_with_precision(produto.preco, precision: 2, delimiter: ".", separator: ",") %></p>
+                    <p class="categoria"><%= produto.categoria.capitalize %></p>
+                    <%= link_to "Ver Produto", show_produto_path(produto), class: "btn-action link-action" %>
+                </article>
+            <% end %>
+        </div>
+    </section>
 </main>
+
+<footer class="footer">
+    <div class="logo">
+        <%= image_tag "logo.png", alt: "logo" %>
+    </div>
+    <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
+</footer>
