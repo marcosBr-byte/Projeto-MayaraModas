@@ -1,0 +1,60 @@
+<header>
+    <div class="logo">
+        <%= image_tag "logo.png", alt: "logo" %>
+    </div>
+
+    <nav>
+        <a href="/" class="nav-link">Explorar</a>
+        <a href="/produto/novidades" class="nav-link">Novidades</a>
+        <a href="/produto/feminino" class="nav-link">Feminino</a>
+        <a href="/produto/masculino" class="nav-link">Masculino</a>
+        <a href="/produto/kids" class="nav-link">Kids</a>
+    </nav>
+
+    <div class="box-btn-actions">
+        <%= button_to "Carrinho", "/carrinho", method: :get, class: "btn-action" %>
+        <%= button_to "Entrar", "/user/login", method: :get, class: "btn-action" %>
+    </div>
+</header>
+
+<main>
+    <section class="carrinho-section">
+        <h2 class="titulo">Meu Carrinho</h2>
+
+        <% if @itens.empty? %>
+            <p class="section-descricao">Seu carrinho está vazio.</p>
+            <%= link_to "Continuar comprando", "/", class: "btn-action link-action" %>
+        <% else %>
+            <div class="itens-carrinho">
+                <% @itens.each do |item| %>
+                    <div class="card-produto item-carrinho">
+                        <%= image_tag item.produto.imagem, class: "img-produto" %>
+                        <h3><%= item.produto.nome %></h3>
+                        <p class="preco">R$ <%= number_with_precision(item.produto.preco, precision: 2, delimiter: ".", separator: ",") %></p>
+
+                        <%= form_with url: atualizar_itemcarrinho_path(item), method: :patch, class: "form-quantidade" do |f| %>
+                            <%= f.number_field :quantidade, value: item.quantidade, min: 1, class: "input-quantidade" %>
+                            <%= f.submit "Atualizar", class: "btn-action" %>
+                        <% end %>
+
+                        <%= button_to "Remover", remover_itemcarrinho_path(item), method: :delete, class: "btn-action btn-remover" %>
+                    </div>
+                <% end %>
+            </div>
+
+            <div class="carrinho-total">
+                <p class="preco">Total: R$ <%= number_with_precision(@carrinho.total, precision: 2, delimiter: ".", separator: ",") %></p>
+                <%= button_to "Finalizar Compra", finalizar_carrinho_path, method: :post, class: "btn-action btn-comprar" %>
+                <%= button_to "Esvaziar carrinho", limpar_carrinho_path, method: :delete, class: "btn-action" %>
+                <%= link_to "Continuar comprando", "/", class: "btn-action link-action" %>
+            </div>
+        <% end %>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="logo">
+        <%= image_tag "logo.png", alt: "logo" %>
+    </div>
+    <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
+</footer>
