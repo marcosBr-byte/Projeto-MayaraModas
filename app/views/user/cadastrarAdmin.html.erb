@@ -1,50 +1,56 @@
 <%= form_with model: @user, url: "/user/cadastrarAdmin", method: :post do |form| %>
 
-<div class="box-btn-actions">
-  <%= link_to "Página inicial", "/", class: "btn-action" %>
-</div>
+<header class="flex justify-between items-center p-8 flex-wrap gap-4 bg-white text-black">
+    <div class="w-auto h-[80px]">
+        <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "Logo Mayara Modas", class: "h-full w-auto object-contain" %>
+    </div>
+
+    <div class="flex gap-4">
+        <%= link_to "Página inicial", "/", class: "px-6 py-2 border border-black rounded-full transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+        <%= link_to "Login", "/user/login", class: "px-6 py-2 border border-black rounded-full transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+    </div>
+</header>
 
 <% if flash[:alert] %>
-  <div style="color:red">
+  <div class="text-red-500 text-center mt-4">
     <%= flash[:alert] %>
   </div>
 <% end %>
 
-    <h1 class="titulo">Criar Conta Admin</h1>
+<main class="flex flex-col items-center justify-center min-h-screen gap-6">
+  <div class="w-full max-w-md p-8 border border-gray-300 rounded-xl shadow-md">
+      <h1 class="text-3xl font-bold text-center mb-6">Criar Conta Admin</h1>
 
-    <%= form.label :nome, "Nome" %>
+      <div class="flex flex-col gap-2 mb-4">
+        <%= form.label :nome, "Nome", class: "font-medium" %>
+        <%= form.text_field :nome, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+      </div>
 
-    <div class="input-box">
-    <%= form.text_field :nome %>
-    </div>
+      <div class="flex flex-col gap-2 mb-4">
+        <%= form.label :email, "Email", class: "font-medium" %>
+        <%= form.email_field :email, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+      </div>
 
-    <%= form.label :email, "Email" %>
+      <div class="flex flex-col gap-2 mb-4">
+        <%= form.label :password, "Senha", class: "font-medium" %>
+        <%= form.password_field :password, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+      </div>
 
-    <div class="input-box">
-    <%= form.email_field :email %>
-    </div>
+      <div class="flex flex-col gap-2 mb-4">
+        <%= form.label :password_confirmation, "Confirmar Senha", class: "font-medium" %>
+        <%= form.password_field :password_confirmation, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+      </div>
 
-    <%= form.label :password, "Senha" %>
+      <div class="flex flex-col gap-2 mb-4">
+        <%= form.label :chaveAcesso, "Chave de Acesso", class: "font-medium" %>
+        <%= form.password_field :chaveAcesso, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+      </div>
 
-    <div class="input-box">
-    <%= form.password_field :password %>
-    </div>
-
-    <%= form.label :password_confirmation, "Confirmar Senha" %>
-
-    <div class="input-box">
-    <%= form.password_field :password_confirmation %>
-    </div>
-
-    <%= form.label :chaveAcesso, "Chave de Acesso" %>
-
-    <div class="input-box">
-    <%= form.password_field :chaveAcesso %>
-    </div>
-
-    <div class="btn-form">
-    <%= form.submit "Criar conta" %>
-    <%= link_to "Já tem uma conta? Entrar", "/user/loginAdmin" %>
-    </div>
+      <div class="flex flex-col gap-4">
+        <%= form.submit "Criar Conta", class: "w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition" %>
+        <%= link_to "Já tem uma conta? Entrar","/user/loginAdmin",class: "text-center text-blue-600 hover:underline" %>
+      </div>
+  </div>
+</main>
 
 <% end %>
