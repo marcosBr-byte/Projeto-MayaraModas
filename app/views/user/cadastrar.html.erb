@@ -1,38 +1,45 @@
 <%= form_with model: @user, url: "/user/cadastrar", method: :post do |form| %>
 
-<div class="box-btn-actions">
-  <%= link_to "Página inicial", root_path, class: "btn-action" %>
-</div>
-
-    <h1 class="titulo">Criar Conta</h1>
-
-    <%= form.label :nome, "Nome" %>
-
-    <div class="input-box">
-    <%= form.text_field :nome %>
+<header class="flex justify-between items-center p-8 flex-wrap gap-4 bg-white text-black">
+    <div class="w-auto h-[80px]">
+        <%= image_tag "icone_mayara_modas_fundo_branco.png",alt: "Logo Mayara Modas",class: "h-full w-auto object-contain" %>
     </div>
 
-    <%= form.label :email, "Email" %>
-
-    <div class="input-box">
-    <%= form.email_field :email %>
+    <div class="flex gap-4">
+        <%= link_to "Página inicial", "/",class: "px-6 py-2 border border-black rounded-full transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+        <%= link_to "Login", "/user/login",class: "px-6 py-2 border border-black rounded-full transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
     </div>
+</header>
 
-    <%= form.label :password, "Senha" %>
+<main class="flex flex-col items-center justify-center min-h-screen gap-6">
+    <div class="w-full max-w-md p-8 border border-gray-300 rounded-xl shadow-md">
 
-    <div class="input-box">
-    <%= form.password_field :password %>
+        <h1 class="text-3xl font-bold text-center mb-6">Criar Conta</h1>
+
+        <div class="flex flex-col gap-2 mb-4">
+            <%= form.label :nome, "Nome",class: "font-medium"%>
+            <%= form.text_field :nome,class: "w-full p-3 border border-gray-300 rounded-lg" %>
+        </div>
+
+        <div class="flex flex-col gap-2 mb-4">
+            <%= form.label :email, "Email",class: "font-medium" %>
+            <%= form.email_field :email,class: "w-full p-3 border border-gray-300 rounded-lg" %>
+        </div>
+
+        <div class="flex flex-col gap-2 mb-4">
+            <%= form.label :password, "Senha",class: "font-medium"   %>
+            <%= form.password_field :password,class: "w-full p-3 border border-gray-300 rounded-lg" %>
+        </div>
+
+        <div class="flex flex-col gap-2 mb-4">
+            <%= form.label :password_confirmation, "Confirmar Senha",class: "font-medium" %>
+            <%= form.password_field :password_confirmation,class: "w-full p-3 border border-gray-300 rounded-lg" %>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <%= form.submit "Criar conta",class: "w-full bg-black text-white p-3 rounded-lg cursor-pointer hover:bg-yellow-400 hover:text-black transition-all duration-300" %>
+            <%= link_to "Já tem uma conta? Entrar", "/user/login",class: "text-center text-blue-600 hover:underline" %>
+        </div>
     </div>
-
-    <%= form.label :password_confirmation, "Confirmar Senha" %>
-
-    <div class="input-box">
-    <%= form.password_field :password_confirmation %>
-    </div>
-
-    <div class="btn-form">
-    <%= form.submit "Criar conta" %>
-    <%= link_to "Já tem uma conta? Entrar", "/user/login" %>
-    </div>
-
+</main>
 <% end %>
