@@ -1,60 +1,66 @@
-<header>
-    <div class="logo">
-        <%= image_tag "logo.png", alt: "logo" %>
+<header class="flex justify-between items-center p-8 flex-wrap min-h-30 gap-4 bg-white text-black">
+    <div class="w-auto h-[80px]" id="logo">
+        <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo", class: "h-full w-auto object-contain" %>
     </div>
 
-    <nav>
-        <a href="/" class="nav-link">Explorar</a>
-        <a href="/produto/novidades" class="nav-link">Novidades</a>
-        <a href="/produto/feminino" class="nav-link">Feminino</a>
-        <a href="/produto/masculino" class="nav-link">Masculino</a>
-        <a href="/produto/kids" class="nav-link">Kids</a>
+    <nav class="flex flex-wrap gap-4 items-center justify-center">
+        <a href="/produto/novidades" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Novidades</a>
+        <a href="/produto/feminino" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Feminino</a>
+        <a href="/produto/masculino" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Masculino</a>
+        <a href="/produto/kids" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Kids</a>
     </nav>
 
-    <div class="box-btn-actions">
-        <%= button_to "Carrinho", "/carrinho", method: :get, class: "btn-action" %>
-        <%= button_to "Entrar", "/user/login", method: :get, class: "btn-action" %>
+    <div class="flex gap-8">
+        <%= button_to "Página inicial", "/", method: :get, form_class: "inline", class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+        <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
     </div>
 </header>
 
-<main>
-    <section class="carrinho-section">
-        <h2 class="titulo">Meu Carrinho</h2>
+<main class="flex flex-col gap-8">
+    <section class="max-w-6xl mx-auto w-full">
+        <h2 class="text-3xl font-bold text-center mb-6">Meu Carrinho</h2>
 
         <% if @itens.empty? %>
-            <p class="section-descricao">Seu carrinho está vazio.</p>
-            <%= link_to "Continuar comprando", "/", class: "btn-action link-action" %>
+            <div class="flex flex-col items-center gap-4">
+                <p class="text-gray-500 text-sm">Seu carrinho está vazio.</p>
+                <%= link_to "Continuar comprando", "/", class: "inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-400 transition" %>
+            </div>
         <% else %>
-            <div class="itens-carrinho">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% @itens.each do |item| %>
-                    <div class="card-produto item-carrinho">
-                        <%= image_tag item.produto.imagem, class: "img-produto" %>
-                        <h3><%= item.produto.nome %></h3>
-                        <p class="preco">R$ <%= number_with_precision(item.produto.preco, precision: 2, delimiter: ".", separator: ",") %></p>
+                    <div class="flex flex-col gap-3 p-4 border border-gray-300 rounded-xl shadow-sm">
+                        <%= image_tag item.produto.imagem, alt: item.produto.nome, class: "w-full h-100 object-cover rounded-lg" %>
+                        <h3 class="font-bold mt-2"><%= item.produto.nome %></h3>
+                        <p class="font-bold text-lg">R$ <%= number_with_precision(item.produto.preco, precision: 2, delimiter: ".", separator: ",") %></p>
 
                         <%= form_with url: atualizar_itemcarrinho_path(item), method: :patch, class: "form-quantidade" do |f| %>
-                            <%= f.number_field :quantidade, value: item.quantidade, min: 1, class: "input-quantidade" %>
-                            <%= f.submit "Atualizar", class: "btn-action" %>
+                            <%= f.number_field :quantidade, value: item.quantidade, min: 1, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+                            <%= f.submit "Atualizar", class: "w-full bg-green-600 text-white p-3 rounded-lg cursor-pointer hover:bg-green-400 hover:text-white transition-all duration-300" %>
                         <% end %>
 
-                        <%= button_to "Remover", remover_itemcarrinho_path(item), method: :delete, class: "btn-action btn-remover" %>
+                        <%= button_to "Remover", remover_itemcarrinho_path(item),method: :delete,class: "w-full bg-red-600 text-white p-3 rounded-lg cursor-pointer hover:bg-red-500 hover:text-white transition-all duration-300",data: { turbo_confirm: "Remover este item do carrinho?" } %>
                     </div>
                 <% end %>
             </div>
 
-            <div class="carrinho-total">
-                <p class="preco">Total: R$ <%= number_with_precision(@carrinho.total, precision: 2, delimiter: ".", separator: ",") %></p>
-                <%= button_to "Finalizar Compra", finalizar_carrinho_path, method: :post, class: "btn-action btn-comprar" %>
-                <%= button_to "Esvaziar carrinho", limpar_carrinho_path, method: :delete, class: "btn-action" %>
-                <%= link_to "Continuar comprando", "/", class: "btn-action link-action" %>
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <div class="w-full max-w-md p-8 border border-gray-300 rounded-xl shadow-md flex flex-col items-center gap-4">
+                    <h2 class="text-3xl text-center font-bold">Pedido</h2>
+                    <p class="font-medium text-center">Total: R$<%= number_with_precision(@carrinho.total, precision: 2, delimiter: ".", separator: ",") %></p>
+
+                    <%= button_to "Finalizar Compra", finalizar_carrinho_path,method: :post,form_class: "w-full flex justify-center",class: "gap-4 w-64 bg-green-600 hover:bg-green-400 text-white p-3 rounded-lg cursor-pointer transition-all duration-300" %>
+                    <%= button_to "Esvaziar carrinho", limpar_carrinho_path,method: :delete,form_class: "w-full flex justify-center",class: "gap-4 w-64 bg-red-600 hover:bg-red-500 text-white p-3 rounded-lg cursor-pointer transition-all duration-300",data: { turbo_confirm: "Tem certeza que deseja esvaziar o carrinho?" } %>
+
+                    <%= link_to "Continuar comprando", "/", class: "block text-center text-blue-600 hover:underline" %>
+                </div>
             </div>
         <% end %>
     </section>
 </main>
 
-<footer class="footer">
-    <div class="logo">
-        <%= image_tag "logo.png", alt: "logo" %>
+<footer class="flex flex-col items-center gap-2 py-8 bg-white text-black">
+    <div class="w-auto h-[100px]">
+        <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo", class: "h-full w-auto object-contain" %>
     </div>
-    <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
+    <p class="text-sm text-gray-400">&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
 </footer>
