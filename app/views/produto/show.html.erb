@@ -1,46 +1,49 @@
-<header>
-  <div class="logo">
-    <%= image_tag "logo.png", alt: "logo" %>
+<header  class=" flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-white text-black ">
+  <div class="w-auto h-[80px]" "logo">
+    <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo",class:"h-full w-auto object-contain"%>
   </div>
 
-  <nav>
-    <a href="/" class="nav-link">Página inicial</a>
+  <nav class="flex flex-wrap gap-4 align-center justify-center">
+    <a class="ml-8 font-bold hover:text-yellow-500 hover:underline" href="/">Página Inicial</a>
+    <a class="ml-8 font-bold hover:text-yellow-500 hover:underline" href="/produto/novidades" class="nav-link">Novidades</a>
+    <a class="ml-8 font-bold hover:text-yellow-500 hover:underline" href="/produto/feminino" class="nav-link">Feminino</a>
+    <a class="ml-8 font-bold hover:text-yellow-500 hover:underline" href="/produto/masculino" class="nav-link">Masculino</a>
+    <a class="ml-8 font-bold hover:text-yellow-500 hover:underline" href="/produto/kids" class="nav-link">Kids</a>
   </nav>
-  <div class="box-btn-actions">
-    <%= button_to "Carrinho", "/carrinho", method: :get, class: "btn-action" %>
-    <%= button_to "Entrar", "/user/login", method: :get, class: "btn-action" %>
+
+  <div class="flex gap-8 ">
+    <%= button_to "Carrinho", "/carrinho", method: :get, class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+    <%= button_to "Entrar", "/user/login", method: :get, class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
   </div>
 </header>
 
-<main class="produto-show">
-  <div class="produto-detalhe">
-    <%= image_tag @produto.imagem, class: "img-produto-grande", alt: @produto.nome %>
+<main class="flex flex-col gap-8">
+   <section class="max-w-6xl mx-auto w-full">
+      <div class="w-full max-w-md p-8 border border-gray-300 rounded-xl shadow-md mx-auto">
+        <%= image_tag @produto.imagem, alt: @produto.nome, class: "w-full h-full object-cover rounded-lg"%>
 
-    <div class="produto-info">
-      <h1><%= @produto.nome %></h1>
-      <p class="descricao"><%= @produto.descricao %></p>
+        <div class="flex flex-col gap-2 mt-4 justify-center items-center">
+          <h4 class="font-bold mt-2"><%= @produto.nome %></h4>
+          <p class="text-sm text-gray-500"><%= @produto.descricao %></p>
+          <p class="font-bold text-lg">R$ <%= @produto.preco %></p>
+          <p class="text-sm text-gray-500">Até 12x de R$ <%= (@produto.preco / 12).round(2) %></p>
 
-      <p class="preco">R$ <%= @produto.preco %></p>
-      <p class="parcelamento">
-        Até 12x de R$ <%= (@produto.preco / 12).round(2) %>
-      </p>
+          <p class="estoque">
+            <% if @produto.estoque.to_i > 0 %>
+              <p class="font-bold text-lg">Em estoque</p>
+            <% else %>
+              <p class="font-bold text-lg">Fora de estoque</p>
+            <% end %>
+          </p>
 
-      <p class="estoque">
-        <% if @produto.estoque.to_i > 0 %>
-          Em estoque
-        <% else %>
-          Fora de estoque
-        <% end %>
-      </p>
-
-     <%= button_to "Adicionar ao carrinho", adicionar_carrinho_path(@produto), method: :post, class: "btn-action" %>
-    </div>
-  </div>
+          <%= button_to "Adicionar ao carrinho", adicionar_carrinho_path(@produto), method: :post, class: "px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-400 transition" %>
+        </div>
+      </div>
 </main>
 
-<footer class="footer">
-  <div class="logo">
-    <%= image_tag "logo.png", alt: "logo" %>
+<footer class="flex flex-col items-center gap-2 py-8 bg-white text-black">
+  <div class="w-auto h-[100px]">
+    <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo",class:"h-full w-auto object-contain"%>
   </div>
-  <p>&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
+  <p class="text-sm text-gray-400">&copy; <%= Date.current.year %> Mayara Modas. Todos os direitos reservados.</p>
 </footer>
