@@ -1,32 +1,38 @@
 <%= form_with model: @produtos, url: "/produto/feminino", method: :post do |form| %>
-
-    <header>
-        <div class="logo">
-            <%= image_tag "logo.png", alt: "logo" %>
+    <header class="flex justify-between items-center p-8 flex-wrap min-h-30 gap-4 bg-white text-black">
+        <div class="w-auto h-[80px]" id="logo">
+            <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo", class: "h-full w-auto object-contain" %>
         </div>
-
-        <nav>
-           <a href="/" class="nav-link">Página inicial</a>
+        
+        <nav class="flex flex-wrap gap-4 items-center justify-center">
+            <a href="/" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Página Inicial</a>
+            <a href="/produto/novidades" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Feminino</a>
+            <a href="/produto/masculino" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Masculino</a>
+            <a href="/produto/kids" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Kids</a>
         </nav>
-        <div class="box-btn-actions">
-            <%= button_to "Carrinho", "/carrinho", method: :get, class: "btn-action" %>
-            <%= button_to "Entrar", "/user/login", method: :get, class: "btn-action" %>
+
+        <div class="flex gap-8">
+            <%= button_to "Carrinho", "/carrinho", method: :get, form_class: "inline", class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+            <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
         </div>
     </header>
+    <main class="flex flex-column gap-8">
+        <section class="max-w-6xl mx-auto w-full">
+                <div class="flex flex-col items-center gap-4">
+                    <h1 class="text-3xl font-bold mb-8">Mais vendidos</h1>
 
-    <h1 class="titulo">Mais vendidos</h1>
-
-    <div class="produtos">
-        <% @produtos.each do |produto| %>
-            <div class="card-produto">
-                <%= image_tag produto.imagem, class: "img-produto" %>
-                <h3><%= produto.nome %></h3>
-                <p class="preco">R$ <%= produto.preco %></p>
-                <p class="parcelamento">
-                    Até 12x de R$ <%= (produto.preco / 12).round(2) %>
-                </p>
-                <%= button_to "Adicionar ao carrinho", adicionar_carrinho_path(produto), method: :post, class: "btn-action" %>
-            </div>
-        <% end %>
-    </div>
+                    <div class="grid grid-cols-2 items-center sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+                        <% @produtos.each do |produto| %>
+                            <div class="flex flex-col justify-center align-center gap-3 p-4 border border-gray-300 rounded-xl shadow-sm">
+                                <%= image_tag produto.imagem, class: "w-full h-[450px] object-cover rounded-lg" %>
+                                <h3 class="font-bold mt-2 text-center"><%= produto.nome %></h3>
+                                <p class="font-bold text-lg text-center">R$ <%= produto.preco %></p>
+                                <p class="text-sm text-gray-500 text-center">Até 12x de R$ <%= (produto.preco / 12).round(2) %></p>
+                                <%= button_to "Adicionar ao carrinho", adicionar_carrinho_path(produto), method: :post,form_class: "w-full flex justify-center mt-2", class: "px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-400 transition" %>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+        </section>
+    </main>
 <% end %>
