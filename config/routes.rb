@@ -23,22 +23,24 @@ Rails.application.routes.draw do
  
   get "produto/index", to: "produto#index"
   get "produto/novidades", to: "produto#novidades", as: :novidades_produtos
-   get "produto/new",to: "produto#new",as: :new_produto
-  post "produto",to: "produto#create"
-  get "produto/:id/edit",to: "produto#edit", as: :edit_produto
+  get "produto/new", to: "produto#new", as: :new_produto
+  post "produto/new", to: "produto#create"
+
+  get "produto/masculino", to: "produto#masculino", as: :masculino_produtos
+  get "produto/masculino/:id", to: "produto#show", as: :masculino_produto
+  post "produto/masculino", to: "produto#buscar_masculino"
+
+  get "produto/feminino", to: "produto#feminino", as: :feminino_produtos
+  get "produto/feminino/:id", to: "produto#show", as: :feminino_produto
+  post "produto/feminino", to: "produto#buscar_feminino"
+
+  get "produto/kids", to: "produto#kids", as: :kids_produtos
+  get "produto/kids/:id", to: "produto#show", as: :kids_produto
+  post "produto/kids", to: "produto#buscar_kids"
+
+  get "produto/:id/edit", to: "produto#edit", as: :edit_produto
   patch "produto/:id", to: "produto#update", as: :produto_update
   put "produto/:id", to: "produto#update"
   get "produto/:id", to: "produto#show", as: :show_produto
   delete "produto/:id", to: "produto#destroy", as: :delete_produto
-  
-  get "produto/masculino",to: "produto#masculino",as: :masculino_produtos
-  get "produto/masculino/:id",to: "produto#show",as: :masculino_produto
-  post "produto/masculino",to: "produto#buscar_masculino"
-  get "produto/feminino",to: "produto#feminino",as: :feminino_produtos
-  get "produto/feminino/:id",to: "produto#show",as: :feminino_produto
-  post "produto/feminino",to: "produto#buscar_feminino"
-  get "produto/kids",to: "produto#kids",as: :kids_produtos
-  get "produto/kids/:id",to: "produto#show",as: :kids_produto
-  post "produto/kids",to: "produto#buscar_kids"
-  
 end
