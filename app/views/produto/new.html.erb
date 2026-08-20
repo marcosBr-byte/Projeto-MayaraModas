@@ -1,73 +1,76 @@
-<header>
-  <div class="logo">
-    <%= image_tag "logo.png", alt: "logo" %>
-  </div>
+<header class="flex justify-between items-center p-8 flex-wrap min-h-30 gap-4 bg-white text-black">
+    <div class="w-auto h-[80px]" id="logo">
+        <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo", class: "h-full w-auto object-contain" %>
+    </div>
 
-  <div class="box-btn-actions">
-    <%= link_to "Página inicial", "/", class: "btn-action" %>
-    <%= link_to "Página cadastrados", "/produto/index", class: "btn-action" %>
-  </div>
+    <nav class="flex flex-wrap gap-4 items-center justify-center">
+        <a href="/" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Página Inicial</a>
+        <a href="/produto/novidades" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Novidades</a>
+        <a href="/produto/feminino" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Feminino</a>
+        <a href="/produto/masculino" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Masculino</a>
+        <a href="/produto/kids" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Kids</a>
+    </nav>
+
+    <div class="flex gap-8">
+        <%= button_to "Carrinho", "/carrinho", method: :get, form_class: "inline",
+            class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+
+        <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline",
+            class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+    </div>
 </header>
 
-<%= form_with model: @produto, url: "/produto", method: :post do |form| %>
+<main class="flex flex-col items-center justify-center min-h-screen gap-6">
+    <div class="w-full max-w-md p-8 border border-gray-300 rounded-xl shadow-md">
+        <h1 class="text-3xl font-bold text-center mb-6">Cadastrar produto</h1>
 
-  <h1 class="titulo">Cadastrar novo produto</h1>
-
-  <% if @produto.errors.any? %>
-    <div class="form-erros">
-      <ul>
-        <% @produto.errors.full_messages.each do |mensagem| %>
-          <li><%= mensagem %></li>
+        <% if @produto.errors.any? %>
+            <div class="form-erros">
+                <ul>
+                    <% @produto.errors.full_messages.each do |mensagem| %>
+                        <li><%= mensagem %></li>
+                    <% end %>
+                </ul>
+            </div>
         <% end %>
-      </ul>
+
+        <%= form_with model: @produto, url: new_produto_path, method: :post do |form| %>
+
+            <div class="flex flex-col gap-2 mb-4">
+                <%= form.label :nome, "Nome", class: "font-medium" %>
+                <%= form.text_field :nome, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+            </div>
+
+            <div class="flex flex-col gap-2 mb-4">
+                <%= form.label :descricao, "Descrição", class: "font-medium" %>
+                <%= form.text_area :descricao, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+            </div>
+
+            <div class="flex flex-col gap-2 mb-4">
+                <%= form.label :preco, "Preço", class: "font-medium" %>
+                <%= form.number_field :preco, step: 0.01, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+            </div>
+
+            <div class="flex flex-col gap-2 mb-4">
+                <%= form.label :estoque, "Estoque", class: "font-medium" %>
+                <%= form.number_field :estoque, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+            </div>
+
+            <div class="flex flex-col gap-2 mb-4">
+                <%= form.label :categoria, "Categoria", class: "font-medium" %>
+                <%= form.select :categoria, ["masculino", "feminino", "kids"], {}, class: "w-full p-3 border border-gray-300 rounded-lg" %>
+            </div>
+
+            <div class="flex flex-col gap-2 mb-4">
+                <%= form.label :imagem, "Nome do arquivo da imagem", class: "font-medium" %>
+                <%= form.text_field :imagem, placeholder: "ex: camiseta-azul.png", class: "w-full p-3 border border-gray-300 rounded-lg" %>
+            </div>
+
+            <div class="flex flex-col justify-center items-center gap-4">
+                <%= form.submit "Cadastrar Produto", class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
+                <%= link_to "Voltar", "/produto/index", class: "text-center text-blue-600 hover:underline self-center" %>
+            </div>
+
+        <% end %>
     </div>
-  <% end %>
-
-  <%= form.label :nome, "Nome" %>
-
-  <div class="input-box">
-    <%= form.text_field :nome %>
-  </div>
-
-
-  <%= form.label :descricao, "Descrição" %>
-
-  <div class="input-box">
-    <%= form.text_area :descricao %>
-  </div>
-
-
-  <%= form.label :preco, "Preço" %>
-
-  <div class="input-box">
-    <%= form.number_field :preco, step: 0.01 %>
-  </div>
-
-
-  <%= form.label :estoque, "Estoque" %>
-
-  <div class="input-box">
-    <%= form.number_field :estoque %>
-  </div>
-
-
-  <%= form.label :categoria, "Categoria" %>
-
-  <div class="input-box">
-    <%= form.select :categoria, ["masculino", "feminino", "kids"] %>
-  </div>
-
-
-  <%= form.label :imagem, "Nome do arquivo da imagem" %>
-
-  <div class="input-box">
-    <%= form.text_field :imagem,
-        placeholder: "ex: camiseta-azul.png" %>
-  </div>
-
-
-  <div class="btn-form">
-    <%= form.submit "Cadastrar produto" %>
-  </div>
-
-<% end %>
+</main>
