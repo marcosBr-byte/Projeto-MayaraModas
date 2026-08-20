@@ -98,6 +98,7 @@ class ProdutoController < ApplicationController
     @produtos = Produto.order(created_at: :desc)
     @produtos = @produtos.where(categoria: @categoria) if @categoria.present?
     @produtos = @produtos.limit(8)
+    
   end
 
   private
