@@ -1,45 +1,55 @@
-<header>
-  <div class="logo">
-    <%= image_tag "logo.png", alt: "logo" %>
-  </div>
-
-  <div class="box-btn-actions">
-    <%= link_to "Página inicial", "/", class: "btn-action"%>
-    <%= link_to "Página cadastrar novo produto", "/produto/new", class: "btn-action"%>
-  </div>
-</header>
-
- 
-<% if @produtos.any? %>
-  <% @produtos.each do |produto| %>
-
-    <div class="card-produto">
-
-      <h3><%= produto.nome %></h3>
-
-      <p>
-        <strong>Preço:</strong>
-        R$ <%= produto.preco %>
-      </p>
-
-      <p>
-        <strong>Categoria:</strong>
-        <%= produto.categoria %>
-      </p>
-
-      <p>
-        <strong>Descrição:</strong>
-        <%= produto.descricao %>
-      </p>
-
-      <% if produto.imagem.present? %>
-        <%= image_tag produto.imagem, width: 200 %>
-      <% end %>
-      <%= button_to "Editar Produto", edit_produto_path(produto.id), method: :get, class: "btn-action" %>
-      <%= button_to "Excluir Produto", delete_produto_path(produto.id), method: :delete, data: { turbo_confirm: "Tem certeza?" }, class: "btn-action" %>
+<header class="flex justify-between items-center p-8 flex-wrap min-h-30 gap-4 bg-white text-black">
+    <div class="w-auto h-[80px]" id="logo">
+        <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo", class: "h-full w-auto object-contain" %>
     </div>
 
-  <% end %>
-<% else %>
-  <p>Nenhum produto encontrado nessa categoria.</p>
-<% end %>
+    <nav class="flex flex-wrap gap-4 items-center justify-center">
+        <a href="/" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Página Inicial</a>
+        <a href="/produto/novidades" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Novidades</a>
+        <a href="/produto/feminino" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Feminino</a>
+        <a href="/produto/masculino" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Masculino</a>
+        <a href="/produto/kids" class="ml-8 font-bold hover:text-yellow-500 hover:underline nav-link">Kids</a>
+    </nav>
+
+    <div class="flex gap-8">
+        <%= button_to "Carrinho", "/carrinho", method: :get, form_class: "inline", class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+        <%= button_to "Entrar", "/user/login", method: :get, form_class: "inline", class: "px-6 py-2 border border-black rounded-full cursor-pointer transition-all duration-300 hover:bg-yellow-400 hover:border-yellow-400" %>
+    </div>
+</header>
+
+<main class="flex flex-col gap-8">
+    <section class="max-w-6xl mx-auto w-full">
+        <h1 class="text-3xl font-bold text-center mb-6">Área dos produtos</h1>
+        
+        <% if @produtos.any? %>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full">
+            <% @produtos.each do |produto| %>
+              <div class="flex flex-col justify-center align-center gap-3 p-4 border border-gray-300 rounded-xl shadow-sm"">
+
+                <% if produto.imagem.present? %>
+                  <%= image_tag produto.imagem, class: "w-full h-[450px] object-cover rounded-lg" %>
+                <% end %>
+                <h3 class="font-bold text-lg text-center"> <%= produto.nome %></h3>
+                <p class="text-sm text-gray-500 text-center"><%= produto.descricao %></p>
+                <p class="font-bold text-lg text-center"> <%= produto.categoria %></p>
+                <p class="font-bold text-lg text-center"> R$<%= produto.preco %></p>
+
+                <%= button_to "Editar Produto", edit_produto_path(produto), method: :get, form_class: "w-full flex justify-center mt-2",class: "px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-400 transition" %>
+                <%= button_to "Excluir Produto", delete_produto_path(produto), method: :delete, data: { turbo_confirm: "Tem certeza?" },form_class: "w-full flex justify-center mt-2",class: "px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 transition"  %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="font-bold text-lg text-center">Nenhum produto encontrado nessa categoria.</p>
+        <% end %>
+        <br>
+
+        <div class="flex flex-col items-center gap-4 mt-8">
+          <div class="w-full max-w-md p-8 border border-gray-300 rounded-xl shadow-md flex flex-col justify-center items-center gap-2 mb-4">
+              <h1 class="text-3xl font-bold text-center mb-6">Cadastrar produto</h1>
+              <%= button_to "Novo produto", new_produto_path, method: :get, class: "w-full bg-blue-600 text-white p-3 rounded-lg cursor-pointer hover:bg-blue-400 hover:text-black transition-all duration-300" %>
+          </div>
+        </div>
+       
+    </section>
+</main>
