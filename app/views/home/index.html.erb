@@ -1,5 +1,5 @@
 <header class=" flex justify-between align-center p-8 flex-wrap min-h-30 gap-4 bg-white text-black ">
-    <div class= "w-auto h-[80px]" "logo">
+    <div class= "w-auto h-[80px]">
         <%= image_tag "icone_mayara_modas_fundo_branco.png", alt: "logo",class:"h-full w-auto object-contain"%>
     </div>
 
@@ -20,14 +20,15 @@
 <main class="flex flex-col gap-8">
     <section id="secao-novidades" class="relative w-full">
         <div class="relative w-full h-[850px] overflow-hidden">
-            <input type="radio" name="radio-btn" id="radio1" checked class="hidden peer/radio1">
-            <input type="radio" name="radio-btn" id="radio2" class="hidden peer/radio2">
-            <input type="radio" name="radio-btn" id="radio3" class="hidden peer/radio3">
 
-            <div class="flex w-[300%] h-full transition-transform duration-700has-[#radio2:checked]:-translate-x-[33.333%]has-[#radio3:checked]:-translate-x-[66.666%]">
+            <div class="flex w-[300%] h-full transition-transform duration-700 has-[#radio2:checked]:-translate-x-[33.333%] has-[#radio3:checked]:-translate-x-[66.666%]">
+                <input type="radio" name="radio-btn" id="radio1" checked class="hidden peer-checked/radio1">
+                <input type="radio" name="radio-btn" id="radio2" class="hidden peer-checked/radio2">
+                <input type="radio" name="radio-btn" id="radio3" class="hidden peer-checked/radio3">
+
                 <div class="relative w-1/3 h-full flex-shrink-0">
                     <%= image_tag "hero.png", alt: "principal", class: "w-full h-full object-cover"  %>
-                    <div class=""absolute inset-0 flex flex-col justify-center items-start gap-4 p-12 bg-black/30 text-white">
+                    <div class="absolute inset-0 flex flex-col justify-center items-start gap-4 p-12 bg-black/30 text-white">
                         <h2 class="text-4xl font-bold">Nova Coleção</h2>
                         <p class="text-lg">Descubra os lançamentos da temporada</p>
                         <%= link_to "Ver agora", "/produto/novidades", class: "px-6 py-2 bg-yellow-500 rounded-full font-bold hover:bg-yellow-400 transition-colors" %>
